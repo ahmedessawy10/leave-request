@@ -22,7 +22,11 @@ class LeaveRequestController extends Controller
     {
         $leaveService = new LeaveManagementService();
     }
-    public function index() {}
+    public function index()
+    {
+        $leaveRequests = $this->leaveService->showAll();
+        return LeaveRequestResource::collection($leaveRequests);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -53,7 +57,10 @@ class LeaveRequestController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+
+        $leaveRequest = $this->leaveService->show($id);
+        return new LeaveRequestResource($leaveRequest);
     }
 
     /**

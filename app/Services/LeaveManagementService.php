@@ -18,6 +18,26 @@ class LeaveManagementService
     public function  __construct() {}
 
 
+    //** show all main requests */
+    public function  showAll()
+    {
+        Gate::authorize('viewAny', LeaveRequest::class);
+        $user = Auth::user();
+        return LeaveRequest::where('user_id', $user->id)->get();
+    }
+
+    //** show  request */
+    public function  show($id)
+
+    {
+        $leaveRequest = LeaveRequest::findOrFail($id);
+        Gate::authorize('view', $leaveRequest);
+
+        return  $leaveRequest;
+    }
+
+
+    //** create  request */
     public function  create(Request $request)
     {
         $user = Auth::user();
@@ -40,7 +60,7 @@ class LeaveManagementService
     }
 
 
-
+    //** show request to review  */
     public function  showAllReviews()
     {
         $user = Auth::user();
@@ -48,7 +68,7 @@ class LeaveManagementService
     }
 
 
-
+    //** review request by approve or  reject  */
     public function reviewRequest(Request $request, $id)
     {
         $leaveRequest = LeaveRequest::find($id);
@@ -71,6 +91,7 @@ class LeaveManagementService
         return $leaveRequest;
     }
 
+    //**  show by hr if approveed */
 
     public function showRequestsForHr()
     {

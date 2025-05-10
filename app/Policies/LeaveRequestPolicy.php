@@ -14,7 +14,7 @@ class LeaveRequestPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,9 +22,10 @@ class LeaveRequestPolicy
      */
     public function view(User $user, LeaveRequest $leaveRequest)
     {
-        $leaveRequest->user_id === $user->id
+
+        return ($leaveRequest->user_id === $user->id)
             ? Response::allow()
-            : Response::denyWithStatus(403);
+            : Response::denyWithStatus(403, "you can only access your requests");
     }
 
     /**
@@ -40,7 +41,7 @@ class LeaveRequestPolicy
      */
     public function update(User $user, LeaveRequest $leaveRequest)
     {
-        $leaveRequest->user_id === $user->id
+        return $leaveRequest->user_id === $user->id
             ? Response::allow()
             : Response::denyWithStatus(403);
     }
@@ -50,7 +51,7 @@ class LeaveRequestPolicy
      */
     public function delete(User $user, LeaveRequest $leaveRequest)
     {
-        $leaveRequest->user_id === $user->id
+        return  $leaveRequest->user_id === $user->id
             ? Response::allow()
             : Response::denyWithStatus(403);
     }
@@ -60,7 +61,7 @@ class LeaveRequestPolicy
      */
     public function restore(User $user, LeaveRequest $leaveRequest)
     {
-        $leaveRequest->user_id === $user->id
+        return  $leaveRequest->user_id === $user->id
             ? Response::allow()
             : Response::denyWithStatus(403);
     }
@@ -76,7 +77,7 @@ class LeaveRequestPolicy
      */
     public function forceDelete(User $user, LeaveRequest $leaveRequest)
     {
-        $leaveRequest->user_id === $user->id
+        return  $leaveRequest->user_id === $user->id
             ? Response::allow()
             : Response::denyWithStatus(403, "You are not authorized to delete Request");
     }
