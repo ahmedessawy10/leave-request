@@ -88,8 +88,8 @@ npm run dev
 - auth token  is update  automatically and shared across all pages in postman .
 
 
-## 
-#### ami notification
+
+#### api notification
 
 <img src="https://github.com/ahmedessawy10/vodoTask/blob/main/public/images/mail notification.png?raw=true">
 
